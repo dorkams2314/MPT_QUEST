@@ -1,4 +1,5 @@
-from typing import Dict, List, Set, Tuple, sys
+from typing import Dict, List, Set, Tuple
+import sys # ради выхода
 
 class GameState:
 	"""
