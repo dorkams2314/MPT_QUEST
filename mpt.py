@@ -199,7 +199,7 @@ def level_2(state: GameState) -> bool:
 					collected.add(obj)
 					print(f"вы установили: {obj}. прогресс сборки: {len(collected)}/{len(required)}.")
 					if (len(collected) == len(required)):
-						print("теперь можно запускать! используй команды 'включить', а после 'пароль'.")
+						print("теперь можно запускать! используй команды 'использовать включить', а после 'использовать пароль'.")
 				else:
 					print("сначала нужно взять эту деталь.")
 			elif obj == "кулер":
