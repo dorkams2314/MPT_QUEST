@@ -1,8 +1,8 @@
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, sys
 
 class GameState:
 	"""
-	ЧЕСТНО!!! написал бы игру на pygame, НО из-за того, что я не один человек в команде, приходится делать так. УВЫ
+	ЧЕСТНО!!! написал бы игру на pygame или даже на renPy, НО из-за того, что я не один человек в команде, приходится делать так. УВЫ
 	"""
 	def __init__(self):
 		self.level: int = 1
@@ -55,7 +55,12 @@ def print_help():
 	""")
 
 def print_unknown_command():
-	print("неизвестная команда. попробуйте 'помощь'.")
+	print("неизвестная команда. попробуй 'помощь'.")
+
+def exit_game(verb):
+	if verb in ("выход", "quit", "exit"):
+		print("пока!")
+		sys.exit(0)
 
 def show_inventory(state: GameState):
 	if state.inventory:
@@ -66,7 +71,7 @@ def show_inventory(state: GameState):
 def level_1(state: GameState) -> bool:
 	print("\n>>>> УРОВЕНЬ 1: аудитория")
 	print("ты очухался в пустой аудитории, а на столе — бардак.")
-	print("где-то должен быть ваш пропуск и ключ от двери в коридор...")
+	print("где-то должен быть твой пропуск и ключ от двери в коридор...")
 	door_name = "дверь_аудитория"
 
 	items_here: List[str] = ["пропуск", "ключ от двери", "расписание", "флешка"]
@@ -84,9 +89,7 @@ def level_1(state: GameState) -> bool:
 		cmd = input("> ").strip()
 		verb, obj = parse_command(cmd)
 
-		if verb in ("выход", "quit", "exit"):
-			print("пока!")
-			return False
+		exit_game(verb)
 
 		if verb in ("помощь", "help"):
 			print_help()
@@ -158,9 +161,7 @@ def level_2(state: GameState) -> bool:
 		cmd = input("> ").strip()
 		verb, obj = parse_command(cmd)
 
-		if verb in ("выход", "quit", "exit"):
-			print("пока!")
-			return False
+		exit_game(verb)
 
 		if verb in ("помощь", "help"):
 			print_help()
@@ -247,7 +248,7 @@ def level_2(state: GameState) -> bool:
 
 def level_3(state: GameState) -> bool:
 	print("\n>>>> УРОВЕНЬ 3: актовый зал")
-	print("ты подходишь ко входу в актовый зал. завуч строго смотрит на тебя.\n")
+	print("ты подходишь ко входу в актовый зал. Завуч строго смотрит на тебя.\n")
 	print("— Пропуск покажите. И на вопрос ответьте — тогда и проходите.\n")
 
 	if not state.has("пропуск"):
@@ -265,13 +266,13 @@ def level_3(state: GameState) -> bool:
 	}
 
 	question, answer = next(iter(riddles.items()))
-	print(f"завуч: «{question}»")
+	print(f"Завуч: «{question}»")
 
 	attempts = 3
 	while attempts > 0:
 		user = normalize(input("твой ответ: "))
 		if user == normalize(answer):
-			print("завуч кивает: «Верно. Проходи. И не опаздывай больше!»\n") # ну блабалабла
+			print("Завуч кивает: «Верно. Проходи. И не опаздывай больше!»\n") # ну блабалабла
 			print("ты успел на последний звонок! игра пройдена йоу.")
 			return True
 		else:
@@ -281,7 +282,7 @@ def level_3(state: GameState) -> bool:
 			else:
 				print("доигрался... до следующего раза")
 				return False
-		print("\nспасибо за игру!!!")
+		print("\nспасибо за игру легенда!!")
 
 def greet() -> str:
 	print("«Последний звонок: квест по МПТ»")
